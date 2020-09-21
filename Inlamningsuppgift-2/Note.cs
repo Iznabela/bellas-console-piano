@@ -8,13 +8,13 @@ namespace Inlamningsuppgift_2
     {
         private string noteID { get; set; }
         private string color { get; set; }
-        private ConsoleKey userKey { get; set; }
+        private ConsoleKey keyID { get; set; }
 
         public Note(string NoteID, string Color, ConsoleKey UserKey)
         {
             noteID = NoteID;
             color = Color;
-            userKey = UserKey;
+            keyID = UserKey;
         }
 
         public string GetNoteID()
@@ -22,9 +22,9 @@ namespace Inlamningsuppgift_2
             return noteID;
         }
 
-        public ConsoleKey GetUserKey()
+        public ConsoleKey GetKeyID()
         {
-            return userKey;
+            return keyID;
         }
 
         public override string ToString()

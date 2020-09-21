@@ -9,58 +9,141 @@ namespace Inlamningsuppgift_2
         public void PlayKeyboard()
         {
             SoundPlayer keyboardSounds = new SoundPlayer();
-            keyboardSounds.SoundLocation = Environment.CurrentDirectory + "/Inlamningsuppgift-2/Sound Files/C3.wav";
-            var keyPress = Console.ReadKey();
+            // keyboardSounds.SoundLocation = Environment.CurrentDirectory + "C3.wav";
+
+            keyboardSounds.SoundLocation = @"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\C3.wav";
+
+            ConsoleKeyInfo keyPress;
 
             do
             {
-                switch (keyPress.Key)
+                keyPress = Console.ReadKey();
+                foreach (var note in notes)
                 {
-                    case ConsoleKey.A:
-                        keyboardSounds.Play();
-                        Console.WriteLine(NoteMatcher(ConsoleKey.A));
-
-                        break;
+                    if (keyPress.Key == note.GetKeyID())
+                    {
+                        Console.Write(note);
+                        PlayNote(note.GetNoteID());
+                        // keyboardSounds.PlaySync();
+                    }
                 }
             }
-            while (keyPress.Key != ConsoleKey.D0); // while user hasn't entered 0
+            while (keyPress.Key != ConsoleKey.Escape); // while user hasn't entered esc
+        }
+
+        public void Manual()
+        {
+            // TODO Foreach loop to print keys
+            Console.WriteLine("Enter these keys ->    [W]   [E]         [T]   [Y]   [U]");
+            Console.WriteLine("For these notes ->    | C#| | D#|       | F#| | G#| | A#|");
+            Console.WriteLine("Enter these keys ->  [A]   [S]   [D]   [F]   [G]   [H]   [J]   [K]");
+            Console.WriteLine("For these notes ->  | C | | D | | E | | F | | G | | A | | B | | C |");
+        }
+
+        public void PlayNote(string note_ID)
+        {
+            switch (note_ID)
+            {
+                case "C3":
+                    sounds[0].Play();
+                    break;
+                case "C#":
+                    sounds[1].Play();
+                    break;
+                case "D":
+                    sounds[2].Play();
+                    break;
+                case "D#":
+                    sounds[3].Play();
+                    break;
+                case "E":
+                    sounds[4].Play();
+                    break;
+                case "F":
+                    sounds[5].Play();
+                    break;
+                case "F#":
+                    sounds[6].Play();
+                    break;
+                case "G":
+                    sounds[7].Play();
+                    break;
+                case "G#":
+                    sounds[8].Play();
+                    break;
+                case "A":
+                    sounds[9].Play();
+                    break;
+                case "A#":
+                    sounds[10].Play();
+                    break;
+                case "B":
+                    sounds[11].Play();
+                    break;
+                case "C4":
+                    sounds[12].Play();
+                    break;
+                default:
+                    Console.WriteLine("ERROR!");
+                    break;
+
+            }
         }
 
         private List<Note> notes = new List<Note>()
-            {
-                new Note("C", "white", ConsoleKey.A),
-                new Note("C#", "black", ConsoleKey.W),
-                new Note("D", "white", ConsoleKey.S),
-                new Note("D#", "black", ConsoleKey.E),
-                new Note("E", "white", ConsoleKey.D),
-                new Note("F", "white", ConsoleKey.F),
-                new Note("F#", "black", ConsoleKey.T),
-                new Note("G", "white", ConsoleKey.G),
-                new Note("G#", "black", ConsoleKey.Y),
-                new Note("A", "white", ConsoleKey.H),
-                new Note("A#", "black", ConsoleKey.U),
-                new Note("B", "white", ConsoleKey.J),
-                new Note("C", "white", ConsoleKey.K)
-            };
+        {
+            new Note("C3", "white", ConsoleKey.A),
+            new Note("C#", "black", ConsoleKey.W),
+            new Note("D", "white", ConsoleKey.S),
+            new Note("D#", "black", ConsoleKey.E),
+            new Note("E", "white", ConsoleKey.D),
+            new Note("F", "white", ConsoleKey.F),
+            new Note("F#", "black", ConsoleKey.T),
+            new Note("G", "white", ConsoleKey.G),
+            new Note("G#", "black", ConsoleKey.Y),
+            new Note("A", "white", ConsoleKey.H),
+            new Note("A#", "black", ConsoleKey.U),
+            new Note("B", "white", ConsoleKey.J),
+            new Note("C4", "white", ConsoleKey.K)
+        };
+
+        private List<SoundPlayer> sounds = new List<SoundPlayer>()
+        {
+            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\C3.wav"),
+            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\C#.wav"),
+            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\D.wav"),
+            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\D#.wav"),
+            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\E.wav"),
+            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\F.wav"),
+            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\F#.wav"),
+            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\G.wav"),
+            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\G#.wav"),
+            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\A.wav"),
+            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\A#.wav"),
+            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\B.wav"),
+            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\C4.wav")
+        };
 
         // checking if the key user entered matches with any key in keyboard
         // if it does it will return the noteID so it can be printed out
-        public string NoteMatcher(ConsoleKey k)
+        // ALTERNATIVT ANVÄNDAS
+        /*
+        public Note NoteMatcher(ConsoleKey k)
         {
-            string playedKey = null;
+            string playedKey;
             foreach (var note in notes)
             {
-                if (k == note.GetUserKey())
+                if (k == note.GetKeyID())
                 {
                     playedKey = note.GetNoteID();
                 }
-                else
-                {
-                    return "Invalid key";
-                }
+                return note;
             }
-            return playedKey;
+            return 
         }
+        */
+
+
         /* ALTERNATIV ARRAY
         Note[] notes = new Note[12];
 
