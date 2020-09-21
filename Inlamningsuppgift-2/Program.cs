@@ -9,22 +9,10 @@ namespace Inlamningsuppgift_2
         {
             Console.BackgroundColor = ConsoleColor.DarkCyan;
             Keyboard keyboard = new Keyboard();
-            SoundPlayer simpleSound = new SoundPlayer(@"~Keyboard");
-            var keyPress = Console.ReadKey();
 
-            do
-            {
-                switch (keyPress.Key)
-                {
-                    case ConsoleKey.A:
-                        simpleSound.Play();
-                        Console.WriteLine(keyboard.NoteMatcher(ConsoleKey.A));
-
-                        break;
-                }
-            }
-            while (keyPress.Key != ConsoleKey.D0); // while user hasn't entered 0
-
+            Console.WriteLine("Press any key to play keyboard...");
+            Console.ReadLine();
+            keyboard.PlayKeyboard();
 
             Console.ReadLine();
         }

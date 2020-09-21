@@ -27,7 +27,6 @@ namespace Inlamningsuppgift_2
             return userKey;
         }
 
-
         public override string ToString()
         {
             if (color == "white")

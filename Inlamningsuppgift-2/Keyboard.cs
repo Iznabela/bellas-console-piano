@@ -1,10 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Media;
 
 namespace Inlamningsuppgift_2
 {
     class Keyboard
     {
+        public void PlayKeyboard()
+        {
+            SoundPlayer keyboardSounds = new SoundPlayer();
+            keyboardSounds.SoundLocation = Environment.CurrentDirectory + "/Inlamningsuppgift-2/Sound Files/C3.wav";
+            var keyPress = Console.ReadKey();
+
+            do
+            {
+                switch (keyPress.Key)
+                {
+                    case ConsoleKey.A:
+                        keyboardSounds.Play();
+                        Console.WriteLine(NoteMatcher(ConsoleKey.A));
+
+                        break;
+                }
+            }
+            while (keyPress.Key != ConsoleKey.D0); // while user hasn't entered 0
+        }
+
         private List<Note> notes = new List<Note>()
             {
                 new Note("C", "white", ConsoleKey.A),
