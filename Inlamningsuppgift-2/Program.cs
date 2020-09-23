@@ -9,10 +9,11 @@ namespace Inlamningsuppgift_2
         static void Main(string[] args)
         {
             Keyboard keyboard = new Keyboard();
+            Layout layout = new Layout();
 
             Console.WriteLine("Welcome to the Keyboard!");
-            Console.WriteLine("[1] > Play with manual");
-            Console.WriteLine("[2] > Play without manual");
+            Console.WriteLine("[1] > Play keyboard manually");
+            Console.WriteLine("[2] > Let computer play randomly");
             string userInput = Console.ReadLine();
             int menuChoice;
             bool success = Int32.TryParse(userInput, out menuChoice);
@@ -22,18 +23,17 @@ namespace Inlamningsuppgift_2
                 if (menuChoice == 1)
                 {
                     Console.Clear();
-                    keyboard.Manual();
-                    Console.WriteLine();
-                    keyboard.PlayKeyboard();
+                    layout.StandardLayout();
+                    keyboard.PlayManually();
                     
                 }
                 else if (menuChoice == 2)
                 {
                     Console.Clear();
-                    keyboard.PlayKeyboard();
+                    layout.StandardLayout();
+                    keyboard.PlayRandomly();
                 }
             }
-            keyboard.PlayKeyboard();
 
             Console.ReadLine();
         }
