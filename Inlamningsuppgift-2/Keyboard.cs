@@ -9,6 +9,7 @@ namespace Inlamningsuppgift_2
     {
         Layout layout = new Layout();
 
+        // creating note-objects which are added to the list
         private List<Note> notes = new List<Note>()
         {
             new Note("C3", "white", ConsoleKey.A, 1),
@@ -55,21 +56,25 @@ namespace Inlamningsuppgift_2
          */
         public void PlayManually()
         {
-            ConsoleKeyInfo keyPress;
+            ConsoleKeyInfo keyInput;
 
             do
             {
-                keyPress = Console.ReadKey();
+                keyInput = Console.ReadKey(true);
                 foreach (var note in notes)
                 {
-                    if (keyPress.Key == note.GetKeyID())
+                    if (keyInput.Key == note.GetKeyID())
                     {
+                        Console.Clear();
+                        layout.PlayLayout(note.GetNoteID());
+                        Console.WriteLine();
                         Console.Write(note);
-                        PlayNote(note.GetNoteID());
+                        Console.ResetColor();
+                        PlayNote(note.GetNoteID());                        
                     }
                 }
             }
-            while (keyPress.Key != ConsoleKey.D0); // while user hasn't entered 0
+            while (keyInput.Key != ConsoleKey.D0); // while user hasn't entered 0
         }
 
         public void PlayRandomly()
@@ -83,7 +88,11 @@ namespace Inlamningsuppgift_2
                 {
                     if (rd == note.GetNumberID())
                     {
+                        Console.Clear();
+                        layout.PlayLayout(note.GetNoteID());
+                        Console.WriteLine();
                         Console.Write(note);
+                        Console.ResetColor();
                         PlayNote(note.GetNoteID());
                         Thread.Sleep(1000);
                     }
@@ -100,7 +109,7 @@ namespace Inlamningsuppgift_2
             {
                 case "C3":
                     sounds[0].Play();
-                    layout.PlayLayout(note_ID);
+                    // layout.PlayLayout(note_ID);
                     break;
                 case "C#":
                     sounds[1].Play();

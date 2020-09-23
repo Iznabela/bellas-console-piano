@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inlamningsuppgift-2", "Inlamningsuppgift-2\Inlamningsuppgift-2.csproj", "{55779BB2-3618-4F5D-A8E6-B4CFE7594C15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inlamningsuppgift-2", "Inlamningsuppgift-2\Inlamningsuppgift-2.csproj", "{55779BB2-3618-4F5D-A8E6-B4CFE7594C15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTest_Inlamning_2", "XUnitTest_Inlamning_2\XUnitTest_Inlamning_2.csproj", "{AF7E9C42-7701-48A2-B2C6-81A077EE0337}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{55779BB2-3618-4F5D-A8E6-B4CFE7594C15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55779BB2-3618-4F5D-A8E6-B4CFE7594C15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55779BB2-3618-4F5D-A8E6-B4CFE7594C15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF7E9C42-7701-48A2-B2C6-81A077EE0337}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF7E9C42-7701-48A2-B2C6-81A077EE0337}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF7E9C42-7701-48A2-B2C6-81A077EE0337}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF7E9C42-7701-48A2-B2C6-81A077EE0337}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
