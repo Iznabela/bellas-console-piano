@@ -53,6 +53,9 @@ namespace Inlamningsuppgift_2
          *
          * When I realised that I need a lot of different layouts to be able to print the keyboard in different
          * conditions I decided to create a new class for the layout.
+         * 
+         * Also - in the method PlayNote() I had a switch statement to compare the parameter with different notes, 
+         * but made the code shorter by creating a string-array containing the notes, and comparing them inside a for-loop
          */
         public void PlayManually()
         {
@@ -65,12 +68,10 @@ namespace Inlamningsuppgift_2
                 {
                     if (keyInput.Key == note.GetKeyID())
                     {
-                        Console.Clear();
-                        layout.PlayLayout(note.GetNoteID());
-                        Console.WriteLine();
-                        Console.Write(note);
+                        PlayNote(note.GetNoteID());
+                        layout.WriteAt(note.ToString(), 1, 7);
                         Console.ResetColor();
-                        PlayNote(note.GetNoteID());                        
+                        layout.PlayLayout(note.GetNoteID());                     
                     }
                 }
             }
@@ -88,13 +89,10 @@ namespace Inlamningsuppgift_2
                 {
                     if (rd == note.GetNumberID())
                     {
-                        Console.Clear();
-                        layout.PlayLayout(note.GetNoteID());
-                        Console.WriteLine();
-                        Console.Write(note);
-                        Console.ResetColor();
                         PlayNote(note.GetNoteID());
-                        Thread.Sleep(1000);
+                        layout.WriteAt(note.ToString(), 1, 7);
+                        Console.ResetColor();
+                        layout.PlayLayout(note.GetNoteID());                        
                     }
                 }
             }
@@ -102,54 +100,15 @@ namespace Inlamningsuppgift_2
 
         public void PlayNote(string note_ID)
         {
-            //TODO for loop instead of switch?
-            // for (int i; i < sounds.)
+            // array of the notes to be able to loop through and compare matches
+            string[] notes = new string[13] { "C3", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C4" };
 
-            switch (note_ID)
+            for (int i = 0; i < notes.Length; i++)
             {
-                case "C3":
-                    sounds[0].Play();
-                    // layout.PlayLayout(note_ID);
-                    break;
-                case "C#":
-                    sounds[1].Play();
-                    break;
-                case "D":
-                    sounds[2].Play();
-                    break;
-                case "D#":
-                    sounds[3].Play();
-                    break;
-                case "E":
-                    sounds[4].Play();
-                    break;
-                case "F":
-                    sounds[5].Play();
-                    break;
-                case "F#":
-                    sounds[6].Play();
-                    break;
-                case "G":
-                    sounds[7].Play();
-                    break;
-                case "G#":
-                    sounds[8].Play();
-                    break;
-                case "A":
-                    sounds[9].Play();
-                    break;
-                case "A#":
-                    sounds[10].Play();
-                    break;
-                case "B":
-                    sounds[11].Play();
-                    break;
-                case "C4":
-                    sounds[12].Play();
-                    break;
-                default:
-                    Console.WriteLine("ERROR!");
-                    break;
+                if (note_ID == notes[i])
+                {
+                    sounds[i].Play();
+                }
             }
         }
     }
