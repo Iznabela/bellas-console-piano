@@ -9,10 +9,9 @@ using System.Transactions;
 
 namespace Inlamningsuppgift_2
 {
-    public class Keyboard
+    public class Piano
     {
-        Layout layout = new Layout();
-
+        public static bool isRandom = false;
         static string workingDirectory = Directory.GetCurrentDirectory();
         static string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
 
@@ -65,25 +64,15 @@ namespace Inlamningsuppgift_2
             sounds[12] = soundFiles + @"C4.wav";
         }
 
-        /* To solve the problems of being able to play a keyboard
-         * i started with initializing the class Soundplayer and trying to figure out how
-         * to play just one soundfile with a key-input from the user.
-         * In the next step i connected the note-objects to keys to be able to play different
-         * notes for every key. And also printing out what note the user is playing by making a ToString method.
-         * Then I worked on the design of the keyboard to make it more user-friendly.
-         *
-         * When I realised that I need a lot of different layouts to be able to print the keyboard in different
-         * conditions I decided to create a new class for the layout.
-         * 
-         * Also - in the method PlayNote() I had a switch statement to compare the parameter with different notes, 
-         * but made the code shorter by creating a string-array containing the notes, and comparing them inside a for-loop
-         */
         public void PlayManually()
         {
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
-            layout.WriteAt("[1] Play randomly...", 1, 9);
-            Console.ForegroundColor = ConsoleColor.Red;
-            layout.WriteAt("[esc] Exit", 1, 12);
+            isRandom = false;
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Layout.WriteAt($"--- Play notes by entering any of the {AmountOfNotes()} letters printed on the piano above ---", 1, 9);
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Layout.WriteAt("[1] Let computer play randomly", 5, 12);
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Layout.WriteAt("[esc] Exit", 5, 16);
             Console.ResetColor();
 
             ConsoleKeyInfo keyInput;
@@ -94,7 +83,7 @@ namespace Inlamningsuppgift_2
                 if (keyInput.Key == ConsoleKey.NumPad1 || keyInput.Key == ConsoleKey.D1)
                 {
                     Console.Clear();
-                    layout.StandardLayout();
+                    Layout.PrintLayout();
                     PlayRandomly();
                 }
 
@@ -103,9 +92,9 @@ namespace Inlamningsuppgift_2
                     if (keyInput.Key == note.GetKeyID())
                     {
                         PlayNote(note.GetNoteID());
-                        layout.WriteAt(note.ToString(), 1, 7);
+                        Layout.WriteAt(note.ToString(), 1, 7);
                         Console.ResetColor();
-                        layout.PlayLayout(note.GetNoteID());
+                        Keystroke.PrintPlayedKey(note.GetNoteID(), isRandom);
                     }
                 }
             } while (keyInput.Key != ConsoleKey.Escape);
@@ -115,6 +104,7 @@ namespace Inlamningsuppgift_2
         // letting the computer play random notes on the keyboard
         public void PlayRandomly()
         {
+            isRandom = true;
             Random random = new Random();
 
             ConsoleKeyInfo keyInput;
@@ -128,18 +118,18 @@ namespace Inlamningsuppgift_2
                     if (rd == note.GetNumberID())
                     {
                         PlayNote(note.GetNoteID());
-                        layout.WriteAt(note.ToString(), 1, 7);
+                        Layout.WriteAt(note.ToString(), 1, 7);
                         Console.ResetColor();
-                        layout.PlayLayout(note.GetNoteID());
+                        Keystroke.PrintPlayedKey(note.GetNoteID(), isRandom);
                     }
                 }
             }            
 
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            layout.WriteAt("[1] Let computer play again", 1, 9);
-            layout.WriteAt("[2] Play manually", 1, 10);
-            Console.ForegroundColor = ConsoleColor.Red;
-            layout.WriteAt("[esc] Exit", 1, 12);
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Layout.WriteAt("[1] Let computer play again", 5, 9);
+            Layout.WriteAt("[2] Play manually", 5, 12);
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Layout.WriteAt("[esc] Exit", 5, 16);
             Console.ResetColor();
 
             keyInput = Console.ReadKey(true);
@@ -147,13 +137,13 @@ namespace Inlamningsuppgift_2
             if (keyInput.Key == ConsoleKey.NumPad1 || keyInput.Key == ConsoleKey.D1)
             {
                 Console.Clear();
-                layout.StandardLayout();
+                Layout.PrintLayout();
                 PlayRandomly();
             }
             else if (keyInput.Key == ConsoleKey.NumPad2 || keyInput.Key == ConsoleKey.D2)
             {
                 Console.Clear();
-                layout.StandardLayout();
+                Layout.PrintLayout();
                 PlayManually();
             }
             else if (keyInput.Key == ConsoleKey.Escape)

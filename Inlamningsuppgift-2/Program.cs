@@ -8,35 +8,22 @@ namespace Inlamningsuppgift_2
     {
         static void Main(string[] args)
         {
-            Keyboard keyboard = new Keyboard();
-            Layout layout = new Layout();
+            Piano piano = new Piano();
             Console.CursorVisible = false;
 
             ConsoleKeyInfo keyInput;
 
-            layout.StandardLayout();
-            keyboard.AddSounds();
-
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            layout.WriteAt("[1] Play manually", 1, 9);
-            layout.WriteAt("[2] Let computer play randomly", 1, 10);
-            Console.ForegroundColor = ConsoleColor.Red;
-            layout.WriteAt("[esc] Exit", 1, 12);
-            Console.ResetColor();
+            Layout.PrintLayout();
+            piano.AddSounds();
+            piano.PlayManually();
 
             keyInput = Console.ReadKey(true);
 
             if (keyInput.Key == ConsoleKey.NumPad1 || keyInput.Key == ConsoleKey.D1)
             {
                 Console.Clear();
-                layout.StandardLayout();
-                keyboard.PlayManually();
-            }
-            else if (keyInput.Key == ConsoleKey.NumPad2 || keyInput.Key == ConsoleKey.D2)
-            {
-                Console.Clear();
-                layout.StandardLayout();
-                keyboard.PlayRandomly();
+                Layout.PrintLayout();
+                piano.PlayRandomly();
             }
             else if (keyInput.Key == ConsoleKey.Escape)
             {

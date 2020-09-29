@@ -6,7 +6,7 @@ namespace Inlamningsuppgift_2
 {
     public class Note
     {
-        public string noteID { get; set; }
+        private string noteID { get; set; }
         private string color { get; set; }
         private ConsoleKey keyID { get; set; }
         private int numberID { get; set; }
