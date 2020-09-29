@@ -8,13 +8,14 @@ namespace Inlamningsuppgift_2
     {
         static void Main(string[] args)
         {
-            Piano keyboard = new Piano();
+            Keyboard keyboard = new Keyboard();
             Layout layout = new Layout();
             Console.CursorVisible = false;
 
             ConsoleKeyInfo keyInput;
 
             layout.StandardLayout();
+            keyboard.AddSounds();
 
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             layout.WriteAt("[1] Play manually", 1, 9);

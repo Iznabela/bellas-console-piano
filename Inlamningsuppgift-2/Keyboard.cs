@@ -2,15 +2,23 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Tracing;
+using System.IO;
 using System.Media;
 using System.Threading;
 using System.Transactions;
 
 namespace Inlamningsuppgift_2
 {
-    public class Piano
+    public class Keyboard
     {
         Layout layout = new Layout();
+
+        static string workingDirectory = Directory.GetCurrentDirectory();
+        static string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+
+        string soundFiles = projectDirectory + @"\SoundFiles\";
+
+        string[] sounds = new string[13];
 
         // creating note-objects which are added to the list
         public List<Note> notes = new List<Note>()
@@ -40,22 +48,22 @@ namespace Inlamningsuppgift_2
             return sum;
         }
 
-        private List<SoundPlayer> sounds = new List<SoundPlayer>()
+        public void AddSounds()
         {
-            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\C3.wav"),
-            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\C#.wav"),
-            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\D.wav"),
-            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\D#.wav"),
-            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\E.wav"),
-            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\F.wav"),
-            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\F#.wav"),
-            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\G.wav"),
-            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\G#.wav"),
-            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\A.wav"),
-            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\A#.wav"),
-            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\B.wav"),
-            new SoundPlayer(@"C:\Users\isabe\source\repos\Inlamningsuppgift-2\Inlamningsuppgift-2\SoundFiles\C4.wav")
-        };
+            sounds[0] = soundFiles + @"C3.wav";
+            sounds[1] = soundFiles + @"C#.wav";
+            sounds[2] = soundFiles + @"D.wav";
+            sounds[3] = soundFiles + @"D#.wav";
+            sounds[4] = soundFiles + @"E.wav";
+            sounds[5] = soundFiles + @"F.wav";
+            sounds[6] = soundFiles + @"F#.wav";
+            sounds[7] = soundFiles + @"G.wav";
+            sounds[8] = soundFiles + @"G#.wav";
+            sounds[9] = soundFiles + @"A.wav";
+            sounds[10] = soundFiles + @"A#.wav";
+            sounds[11] = soundFiles + @"B.wav";
+            sounds[12] = soundFiles + @"C4.wav";
+        }
 
         /* To solve the problems of being able to play a keyboard
          * i started with initializing the class Soundplayer and trying to figure out how
@@ -164,7 +172,7 @@ namespace Inlamningsuppgift_2
             {
                 if (note_ID == notes[i])
                 {
-                    sounds[i].Play();
+                    new SoundPlayer(sounds[i]).Play();
                 }
             }
         }

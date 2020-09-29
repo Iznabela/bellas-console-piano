@@ -11,12 +11,12 @@ namespace XUnitTest_Inlamning_2
 {
     public class UnitTest1
     {
-        Piano piano = new Piano();
+        Inlamningsuppgift_2.Keyboard keyboard = new Inlamningsuppgift_2.Keyboard();
 
         [Fact]
         public void AmountOfNotesTest()
         {
-            Assert.Equal(13, piano.AmountOfNotes());
+            Assert.Equal(13, keyboard.AmountOfNotes());
         }
     }
 }
