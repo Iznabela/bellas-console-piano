@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Tracing;
 using System.Media;
 using System.Threading;
+using System.Transactions;
 
 namespace Inlamningsuppgift_2
 {
-    class Keyboard
+    public class Piano
     {
         Layout layout = new Layout();
 
         // creating note-objects which are added to the list
-        private List<Note> notes = new List<Note>()
+        public List<Note> notes = new List<Note>()
         {
             new Note("C3", "white", ConsoleKey.A, 1),
             new Note("C#", "black", ConsoleKey.W, 2),
@@ -26,6 +29,16 @@ namespace Inlamningsuppgift_2
             new Note("B", "white", ConsoleKey.J, 12),
             new Note("C4", "white", ConsoleKey.K, 13)
         };
+
+        public int AmountOfNotes()
+        {
+            int sum = 0;
+            foreach (var note in notes)
+            {
+                sum++;
+            }
+            return sum;
+        }
 
         private List<SoundPlayer> sounds = new List<SoundPlayer>()
         {
@@ -59,11 +72,24 @@ namespace Inlamningsuppgift_2
          */
         public void PlayManually()
         {
-            ConsoleKeyInfo keyInput;
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            layout.WriteAt("[1] Play randomly...", 1, 9);
+            Console.ForegroundColor = ConsoleColor.Red;
+            layout.WriteAt("[esc] Exit", 1, 12);
+            Console.ResetColor();
 
+            ConsoleKeyInfo keyInput;
             do
             {
                 keyInput = Console.ReadKey(true);
+
+                if (keyInput.Key == ConsoleKey.NumPad1 || keyInput.Key == ConsoleKey.D1)
+                {
+                    Console.Clear();
+                    layout.StandardLayout();
+                    PlayRandomly();
+                }
+
                 foreach (var note in notes)
                 {
                     if (keyInput.Key == note.GetKeyID())
@@ -71,17 +97,21 @@ namespace Inlamningsuppgift_2
                         PlayNote(note.GetNoteID());
                         layout.WriteAt(note.ToString(), 1, 7);
                         Console.ResetColor();
-                        layout.PlayLayout(note.GetNoteID());                     
+                        layout.PlayLayout(note.GetNoteID());
                     }
                 }
-            }
-            while (keyInput.Key != ConsoleKey.D0); // while user hasn't entered 0
+            } while (keyInput.Key != ConsoleKey.Escape);
+            Environment.Exit(0);
         }
 
+        // letting the computer play random notes on the keyboard
         public void PlayRandomly()
         {
             Random random = new Random();
-            for (int plays = 0; plays <= 10; plays++)
+
+            ConsoleKeyInfo keyInput;
+
+            for (int i = 0; i <= 20; i++)
             {
                 int rd = random.Next(1, 13);
 
@@ -92,10 +122,37 @@ namespace Inlamningsuppgift_2
                         PlayNote(note.GetNoteID());
                         layout.WriteAt(note.ToString(), 1, 7);
                         Console.ResetColor();
-                        layout.PlayLayout(note.GetNoteID());                        
+                        layout.PlayLayout(note.GetNoteID());
                     }
                 }
+            }            
+
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            layout.WriteAt("[1] Let computer play again", 1, 9);
+            layout.WriteAt("[2] Play manually", 1, 10);
+            Console.ForegroundColor = ConsoleColor.Red;
+            layout.WriteAt("[esc] Exit", 1, 12);
+            Console.ResetColor();
+
+            keyInput = Console.ReadKey(true);
+
+            if (keyInput.Key == ConsoleKey.NumPad1 || keyInput.Key == ConsoleKey.D1)
+            {
+                Console.Clear();
+                layout.StandardLayout();
+                PlayRandomly();
             }
+            else if (keyInput.Key == ConsoleKey.NumPad2 || keyInput.Key == ConsoleKey.D2)
+            {
+                Console.Clear();
+                layout.StandardLayout();
+                PlayManually();
+            }
+            else if (keyInput.Key == ConsoleKey.Escape)
+            {
+                Environment.Exit(0);
+            }
+
         }
 
         public void PlayNote(string note_ID)

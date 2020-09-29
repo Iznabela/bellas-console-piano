@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Inlamningsuppgift_2
 {
-    class Note
+    public class Note
     {
-        protected string noteID { get; set; }
+        public string noteID { get; set; }
         private string color { get; set; }
         private ConsoleKey keyID { get; set; }
         private int numberID { get; set; }
@@ -38,14 +38,14 @@ namespace Inlamningsuppgift_2
         {
             if (color == "white")
             {
-                Console.BackgroundColor = ConsoleColor.White;
-                Console.ForegroundColor = ConsoleColor.Red;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.ForegroundColor = ConsoleColor.White;
                 return string.Format($"  {noteID}  ");
             }
             else if (color == "black")
             {
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.Red;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.ForegroundColor = ConsoleColor.Black;
                 return string.Format($"  {noteID}  ");
             }
             else

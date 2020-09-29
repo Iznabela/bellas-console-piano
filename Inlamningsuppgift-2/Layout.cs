@@ -9,8 +9,8 @@ namespace Inlamningsuppgift_2
     public class Layout
     {
         // members for starting point of rows and columns
-        public int rowStart;
-        public int columnStart;
+        int rowStart;
+        int columnStart;
 
         public void WriteAt(string s, int x, int y)
         {
@@ -110,7 +110,7 @@ namespace Inlamningsuppgift_2
             }
         }
 
-        // TODO continue making arrays and for-loops instead of just a lot of "WriteAt:s"
+        // when a note is played - this method is called to temporary change the layout
         public void PlayLayout(string note_ID)
         {
             int[] rowPosSharpNotes = new int[8] { 1, 1, 1, 2, 2, 3, 3, 3 };
