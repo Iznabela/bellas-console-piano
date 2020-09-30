@@ -9,26 +9,13 @@ namespace Inlamningsuppgift_2
         static void Main(string[] args)
         {
             Piano piano = new Piano();
+
             Console.CursorVisible = false;
 
-            ConsoleKeyInfo keyInput;
-
+            // printing the piano, adding soundfiles and letting user play
             Layout.PrintLayout();
-            piano.AddSounds();
+            Piano.AddSounds();
             piano.PlayManually();
-
-            keyInput = Console.ReadKey(true);
-
-            if (keyInput.Key == ConsoleKey.NumPad1 || keyInput.Key == ConsoleKey.D1)
-            {
-                Console.Clear();
-                Layout.PrintLayout();
-                piano.PlayRandomly();
-            }
-            else if (keyInput.Key == ConsoleKey.Escape)
-            {
-                Environment.Exit(0);
-            }
         }
     }
 }

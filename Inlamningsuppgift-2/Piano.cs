@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Tracing;
 using System.IO;
 using System.Media;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Transactions;
 
@@ -11,16 +12,18 @@ namespace Inlamningsuppgift_2
 {
     public class Piano
     {
-        public static bool isRandom = false;
-        static string workingDirectory = Directory.GetCurrentDirectory();
-        static string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+        public bool isRandom = false;
 
-        string soundFiles = projectDirectory + @"\SoundFiles\";
+        // fields to get the right working directory to be able to play soundfiles when opening the project on other units
+        private static string workingDirectory = Directory.GetCurrentDirectory();
+        private static string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
 
-        string[] sounds = new string[13];
+        private static string soundFiles = projectDirectory + @"\SoundFiles\";
+
+        private static string[] sounds = new string[13];
 
         // creating note-objects which are added to the list
-        public List<Note> notes = new List<Note>()
+        private List<Note> notes = new List<Note>()
         {
             new Note("C3", "white", ConsoleKey.A, 1),
             new Note("C#", "black", ConsoleKey.W, 2),
@@ -37,17 +40,7 @@ namespace Inlamningsuppgift_2
             new Note("C4", "white", ConsoleKey.K, 13)
         };
 
-        public int AmountOfNotes()
-        {
-            int sum = 0;
-            foreach (var note in notes)
-            {
-                sum++;
-            }
-            return sum;
-        }
-
-        public void AddSounds()
+        public static void AddSounds()
         {
             sounds[0] = soundFiles + @"C3.wav";
             sounds[1] = soundFiles + @"C#.wav";
@@ -67,6 +60,7 @@ namespace Inlamningsuppgift_2
         public void PlayManually()
         {
             isRandom = false;
+
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Layout.WriteAt($"--- Play notes by entering any of the {AmountOfNotes()} letters printed on the piano above ---", 1, 9);
             Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -76,38 +70,41 @@ namespace Inlamningsuppgift_2
             Console.ResetColor();
 
             ConsoleKeyInfo keyInput;
+
+            // lets user play as long as "esc" isn't entered
             do
             {
                 keyInput = Console.ReadKey(true);
 
                 if (keyInput.Key == ConsoleKey.NumPad1 || keyInput.Key == ConsoleKey.D1)
                 {
-                    Console.Clear();
-                    Layout.PrintLayout();
                     PlayRandomly();
                 }
 
+                // checking if keyinput matches any notes
                 foreach (var note in notes)
                 {
                     if (keyInput.Key == note.GetKeyID())
                     {
-                        PlayNote(note.GetNoteID());
-                        Layout.WriteAt(note.ToString(), 1, 7);
+                        PlayNote(note.GetNoteID()); // playing specific note
+                        Layout.WriteAt(note.ToString(), 52, 1); // printing the note
                         Console.ResetColor();
-                        Keystroke.PrintPlayedKey(note.GetNoteID(), isRandom);
+                        Keystroke.PrintPlayedKey(note.GetNoteID(), isRandom); // printing keystroke on the specific key and reprints default state
                     }
                 }
             } while (keyInput.Key != ConsoleKey.Escape);
+
             Environment.Exit(0);
         }
 
-        // letting the computer play random notes on the keyboard
+        /* letting the program play random notes on the keyboard
+         * using random numbers instead of user input
+         */
         public void PlayRandomly()
         {
             isRandom = true;
-            Random random = new Random();
 
-            ConsoleKeyInfo keyInput;
+            Random random = new Random();
 
             for (int i = 0; i <= 20; i++)
             {
@@ -118,46 +115,19 @@ namespace Inlamningsuppgift_2
                     if (rd == note.GetNumberID())
                     {
                         PlayNote(note.GetNoteID());
-                        Layout.WriteAt(note.ToString(), 1, 7);
+                        Layout.WriteAt(note.ToString(), 52, 1);
                         Console.ResetColor();
                         Keystroke.PrintPlayedKey(note.GetNoteID(), isRandom);
                     }
                 }
-            }            
-
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Layout.WriteAt("[1] Let computer play again", 5, 9);
-            Layout.WriteAt("[2] Play manually", 5, 12);
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Layout.WriteAt("[esc] Exit", 5, 16);
-            Console.ResetColor();
-
-            keyInput = Console.ReadKey(true);
-
-            if (keyInput.Key == ConsoleKey.NumPad1 || keyInput.Key == ConsoleKey.D1)
-            {
-                Console.Clear();
-                Layout.PrintLayout();
-                PlayRandomly();
             }
-            else if (keyInput.Key == ConsoleKey.NumPad2 || keyInput.Key == ConsoleKey.D2)
-            {
-                Console.Clear();
-                Layout.PrintLayout();
-                PlayManually();
-            }
-            else if (keyInput.Key == ConsoleKey.Escape)
-            {
-                Environment.Exit(0);
-            }
-
         }
 
-        public void PlayNote(string note_ID)
+        public static void PlayNote(string note_ID)
         {
-            // array of the notes to be able to loop through and compare matches
             string[] notes = new string[13] { "C3", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C4" };
 
+            // looping through the array of notes to play the right note
             for (int i = 0; i < notes.Length; i++)
             {
                 if (note_ID == notes[i])
@@ -165,6 +135,16 @@ namespace Inlamningsuppgift_2
                     new SoundPlayer(sounds[i]).Play();
                 }
             }
+        }
+
+        public int AmountOfNotes()
+        {
+            int sum = 0;
+            foreach (var note in notes)
+            {
+                sum++;
+            }
+            return sum;
         }
     }
 }

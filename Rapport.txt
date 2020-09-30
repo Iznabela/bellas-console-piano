@@ -1,3 +1,5 @@
+Hur jag bröt ner mitt problem i mindre delar:
+
 * Kunna spela upp ljudfil vid användarinput
 * Connecta noter med specifika keys
 * Spela upp olika noter beroende på användarinput
@@ -8,11 +10,11 @@
 * Fixa file-path så ljudfiler kan spelas när projekt öppnas på annan enhet
 * Städa kod och gör mer användar-vänligt
 
-.NET core klasser:
-
-* class Random
-* class SoundPlayer
-* class Environment
+Jag använde mig av några .NET Core klasser i mitt program. Några exempel är: 
+* class Random för att kunna slumpmässigt spela noter på pianot. 
+* class SoundPlayer för att kunna spela upp ljudfiler i programmet.
+* class Directory för att kunna komma åt ljudfilerna från annan enhet, 
+  så länge de ligger kvar i projektmappen.
 
 Jag valde att testa mitt program med ett xUnit test som testar om antal
 not-objekt i min lista är lika med 13.

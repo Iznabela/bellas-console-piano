@@ -8,10 +8,11 @@ namespace Inlamningsuppgift_2
 {
     public static class Layout
     {
-        // starting points of row and column
+        // starting points of the console
         public static int rowStart;
         public static int columnStart;
 
+        // method to call when printing something to the console
         public static void WriteAt(string s, int x, int y)
         {
             try
@@ -63,7 +64,7 @@ namespace Inlamningsuppgift_2
             {
                 WriteAt(rowThreeLetters[i], rowThreeColLetterPositions[i], 2);
             }
-                        
+
             // contains the column position numbers for the vertical lines in row 4
             int[] rowFourColVertLines = new int[14] { 0, 4, 8, 11, 15, 18, 21, 25, 28, 32, 35, 39, 42, 48 };
 
@@ -111,3 +112,4 @@ namespace Inlamningsuppgift_2
         }
     }
 }
+

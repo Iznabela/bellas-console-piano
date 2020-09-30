@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Inlamningsuppgift_2
 {
-    public class Note
+    class Note
     {
-        private string noteID { get; set; }
-        private string color { get; set; }
-        private ConsoleKey keyID { get; set; }
-        private int numberID { get; set; }
+        private string noteID;
+        private string color;
+        private ConsoleKey keyID;
+        private int numberID;
 
         public Note(string NoteID, string Color, ConsoleKey UserKey, int NumberID)
         {
@@ -40,13 +40,13 @@ namespace Inlamningsuppgift_2
             {
                 Console.BackgroundColor = ConsoleColor.DarkGray;
                 Console.ForegroundColor = ConsoleColor.White;
-                return string.Format($"  {noteID}  ");
+                return string.Format($" {noteID} ");
             }
             else if (color == "black")
             {
                 Console.BackgroundColor = ConsoleColor.DarkGray;
                 Console.ForegroundColor = ConsoleColor.Black;
-                return string.Format($"  {noteID}  ");
+                return string.Format($" {noteID} ");
             }
             else
             {
